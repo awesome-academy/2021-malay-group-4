@@ -1,9 +1,12 @@
 <% provide :title, :Home %>
 
-<h1><%= t :Sample_App %></h1>
+<h1><%= t :title %></h1>
 <p>
   <%= t :p_1 %>
-  <%= link_to t(:p_2), "https://mjiit.utm.my/" %>
+  <%= link_to t(:p_1), "https://mjiit.utm.my/" %>
   <%= t :p_2 %>
   <%= t :p_3 %>
+  <%= link_to t(:p_3), "https://www.utm.my/about/contact-us/" %>
+  <%= t :p_4 %>
+  <%= link_to t(:p_4), "https://mjiit.utm.my/wp-content/uploads/2020/10/UG-ACADEMIC-GUIDELINES-20202021.pdf" %>
 </p>

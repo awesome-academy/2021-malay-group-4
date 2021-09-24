@@ -28,6 +28,17 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  title: "MalayGroup4"
+  p_1: "UTM MJIIT."
+  p_2: "Application for the Course Registration System."
+  p_3: "Please contact us if you have any problem."
+  p_4: "UTM MJIIT Guide Book"
+  help_1: "Get help on the UTM MJIIT Website at the"
+  help_2: "UTM help page"
+  help_3: "To get help on this sample app, see the"
+  help_4: "UTM MJIIT Guide book"
+  Home: "Home"
+  Help: "Help"
+  Log_in: "Log in"
+  Sample_App: "sample app"

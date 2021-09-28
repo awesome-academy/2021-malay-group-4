@@ -31,3 +31,8 @@ ja:
   log_out: "ログアウト"
   invalid_email_password_combination: "申し訳ありませんが、パスワードが間違っています！"
   ja: "日本語"
+  forgot_pass: "パスワードをお忘れですか"
+  email_sent: "送信されたメール"
+  email_not_found: "メールが見つかりません"
+  password_reset: "パスワードのリセット"
+  password_expired: "パスワードの有効期限が切れました"

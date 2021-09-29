@@ -61,3 +61,8 @@ en:
   log_out: "Log out"
   invalid_email_password_combination: "Sorry, wrong password!"
   en: "English"
+  forgot_pass: "Forgot password"
+  email_sent: "Email sent"
+  email_not_found: "Email is not found"
+  password_reset: "Password reset"
+  password_expired: "Password Expired"

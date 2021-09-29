@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     resources :password_resets, only: [:new, :create, :edit, :update]
+    resources :account_activations, only: :edit
   end
 end

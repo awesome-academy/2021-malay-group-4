@@ -1,0 +1,35 @@
+<h1><%= t(:course_registration) %></h1>
+  <div class="field">
+    <%= form_for :session, url: login_path do |f| %>
+      <%= f.label :Course1, t(:course1)  %>
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>SMJE2345:Electromagnetic</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form_for :session, url: login_path do |f| %>
+      <%= f.label :Course2, t(:course2)  %>
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>SMJE5020:Maths2</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form_for :session, url: login_path do |f| %>
+      <%= f.label :Course3, t(:course3)  %>
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>SMJE2222:Fluid2</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <p><%= t(:pls_rechk) %>
+  <%= form_for :session, url: login_path do |f| %>
+  <%= f.submit t("submit"), class: "btn btn-primary" %>
+  <% end %>

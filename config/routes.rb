@@ -12,5 +12,9 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
     resources :password_resets, only: [:new, :create, :edit, :update]
     resources :account_activations, only: :edit
+
+    get "/courseregister", to: "courses#new"
+    post "/courseregister", to: "courses#create"
+    resources :course, only: %i(new create show)
   end
 end

@@ -47,3 +47,28 @@ textarea {
     border-bottom: 1px solid gray;
   }
 }
+
+.checkbox {
+  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-left: 20px;
+  span {
+  font-weight: normal;
+  margin-left: 20px;
+  }
+}
+#session_remember_me {
+  margin-left: 0;
+  width: auto;
+}
+
+/* forms */
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+input {
+  height: auto !important;
+}

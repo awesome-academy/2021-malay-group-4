@@ -83,3 +83,7 @@ en:
   You_sure: "You Sure??"
   User_deleted: "User delete"
   Delete_fail: "Delete fail"
+  loginpls: "Please Log In"
+  course_created: "Course is created"
+  the_form_contains: "The Form Contains"
+  error: "Error"

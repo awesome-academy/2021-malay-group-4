@@ -3,16 +3,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by email: params[:session][:email].downcase
-    if @user && @user.authenticate(params[:session][:password])
-      if @user.activated
-        log_in @user
-        params[:session][:remember_me] == "1" ? remember(@user) : forget(@user)
-        redirect_back_or @user
+    @admin = Admin.find_by email: params[:session][:email].downcase
+    if @admin && @admin.authenticate(params[:session][:password])
+      if @admin.activated
+        log_in admin
+        redirect_to admin
+        params[:session][:remember_me] == "1" ? remember(@admin) : forget(@admin)
+        redirect_back_or @admin
       else
-        message = t(:error_acc_unacti)
-        flash[:warning] = t(:message)
-        redirect_to root_url
+        message = "Account not activated. Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to_home_url
       end
     else
       flash.now[:danger] = t(:invalid_email_password_combination)

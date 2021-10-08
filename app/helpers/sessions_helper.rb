@@ -1,41 +1,52 @@
 module SessionsHelper
-  # Logs in the given user.
-  def logged_in(user)
-    session[:user_id] = user.id
+  def log_in admin
+    session[:user_id] = admin.id
   end
 
-  def current_user
-    if (user_id = session[:user_id])
-      @current_user ||= User.find_by id: user_id
-    elsif (user_id = cookies.signed[:user_id])
-      @user = User.find_by id: user_id
-      if @user && @user.authenticated?(:remember, cookies[:remember_token])
-        log_in @user
-        @current_user = @user
+  def current_admin
+    if user_id = session[:admin_id]
+      @current_admin ||= Admin.find_by id: admin_id
+    elsif (admin_id = cookies.signed[:admin_id])
+      user = Admin.find_by id: admin_id
+      if admin&.authenticated?(cookies[:remember_token])
+        log_in admin
+        @current_admin = admin
       end
     end
   end
 
-  # Returns true if the user is logged in, false otherwise
   def logged_in?
-    current_user.present?
+    current_admin.present?
   end
 
   def log_out
-    session.delete(:user_id)
-    @current_user = nil
+    forget(current_admin)
+    session.delete(:admin_id)
+    @current_admin = nil
   end
 
-  def current_user?(user)
-    user == current_user
+  def remember admin
+    admin.remember
+    cookies.permanent.signed[:admin_id] = admin.id
+    cookies.permanent[:remember_token] = admin.remember_token
   end
 
-  def redirect_back_or(default)
+  def forget(admin)
+   admin.forget
+   cookies.delete(:admin_id)
+   cookies.delete(:remember_token)
+  end
+
+  def redirect_back_or default
     redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)
   end
 
   def store_location
     session[:forwarding_url] = request.original_url if request.get?
+  end
+
+  def current_admin? admin
+    admin == current_admin
   end
 end

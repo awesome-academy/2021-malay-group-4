@@ -1,80 +1,57 @@
 class UsersController < ApplicationController
-  before_action :load_user, only: :show
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user, only: %i(edit update)
-  before_action :admin_user, only: :destroy
+  before_action :load_admin, only: :show
+  before_action :logged_in_admin, only: [:index, :edit, :update, :destroy]
+  before_action :correct_admin, only: %i(edit update)
+  before_action :admin_admin, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @admins = Admin.paginate(page: params[:page])
   end
 
-  def show; end
+  def show
+    @admin = Admin.find_by(id: params[:id])
+    @register = Register.new
+    @ids = current_admin.course_ids
+
+    unless @admin
+      flash[:danger] = t(:user_not_found)
+      redirect_to home_path
+    end
+  end
 
   def new
-    @user = User.new
+     @admin = Admin.new
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      @user.send_activation_email
-      flash[:info] = t(:pls_chk_email)
-      redirect_to @user
+    @admin = Admin.new admin_params
+    if @admin.save
+      @admin.send_activation_email
+      flash[:info] = t(:check)
+      redirect_to home_url
     else
       render :new
     end
   end
 
   def update
-    @user = User.find_by(id: params[:id])
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
-    else
-      render "edit"
-    end
-  end
-
-  def destroy
-    user = User.find_by(id: params[:id])
-    if user&.destroy
-      flash[:success] = t(:User_deleted)
-    else
-      flash[:danger] = t(:Delete_fail)
-    end
-    redirect_to users_url
+    @admin = Admin.find(params[:id])
   end
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  def admin_params
+    params.require(:admin).permit :name, :email, :password, :password_confirmation
   end
 
-  def load_user
-    @user = User.find_by id: params[:id]
-    return if @user
-
-    flash[:error] = t(:error)
-    redirect_to root_path
+  def correct_admin
+    @admin = Admin.find_by(id: params[:id])
+    return if current_admin?(@admin)
+    flash[:danger] = t("not_authorized")
+    redirect_to(home_url)
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = t(:Please_log_in)
-      redirect_to login_url
-    end
-  end
-
-  def correct_user
-    @user = User.find_by(id: params[:id])
-    return if current_user?(@user)
-    flash[:danger]= t(:you_are_not_authorized)
-    redirect_to(root_url)
-  end
-
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
+  def admin_admin
+    redirect_to(root_url) unless current_admin.admin?
   end
 end

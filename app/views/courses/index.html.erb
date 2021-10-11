@@ -1,0 +1,55 @@
+<%= provide :title, t("list_course") %>
+
+<div class="col-md-6 col-md-offset-3"">
+  <div class="row">
+    <h1><%= t("list_course") %></h1>
+    <div>
+      <% if current_user %>
+        <p><%= link_to t("new_course") , new_course_path %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="media text-justify">
+    <div class="media-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= t("date_updated") %></th>
+            <th><%= t("course_id") %></th>
+            <th><%= t("course") %></th>
+            <th><%= t("status") %></th>
+            <th><%= t("duration") %></th>
+            <th><%= t("members") %></th>
+            <th><%= t("detail") %></th>
+            <% if current_user %>
+              <th><%= t("action") %></th>
+              <th><%= t("remove") %></th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @courses.each do |course| %>
+            <tr>
+              <td><%= course.updated_at.to_date %></td>
+              <td><%= course.id %></td>
+              <td><%= course.name %></td>
+              <td><%= course.status %></td>
+              <td><%= course.total_month %> <%= t("months") %></td>
+              <td><%= course.registers.count %> <%= t("members") %></td>
+              <td><%= link_to t("show"), course, class: "btn btn-mini" %></td>
+              <% if current_user.admin? %>
+                <td>
+                  <%= link_to t("edit"), edit_course_path(course), class: "btn btn-mini" %>
+                </td>
+                <td><%= button_to t("delete"), course, method: :delete, data: { confirm: t("are_you_sure") }, class: "btn btn-mini" %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

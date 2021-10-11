@@ -21,7 +21,12 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out if logged_in?
-    redirect_to home_path
+    user = User.find_by(id: params[:id])
+    if user&.destroy
+      flash[:success] = "User deleted"
+    else
+      flash[:danger] = "Delete fail!"
+    end
+    redirect_to users_url
   end
 end

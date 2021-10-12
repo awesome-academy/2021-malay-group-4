@@ -1,12 +1,50 @@
-<%= form_for(@user) do |f| %>
-  <%= render "shared/error_messages", object: @user %>
-  <%= f.label :name %>
-  <%= f.text_field :name, class: "form-control" %>
-  <%= f.label :email %>
-  <%= f.email_field :email, class: "form-control" %>
-  <%= f.label :password %>
-  <%= f.password_field :password, class: "form-control" %>
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation, class: "form-control" %>
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<%= form_with model: course do |form| %>
+
+  <div class="control-group">
+    <p><%= form.label t("name"), class: 'control-label' %></p>
+    <div class="controls">
+      <div>
+        <p><%= form.text_field :name %></p>
+        <% course.errors.full_messages_for(:name).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <div>
+        <p><%= form.label t("description"), class: 'control-label' %></p>
+        <p><%= form.text_area :description %></p>
+        <% course.errors.full_messages_for(:description).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= form.label t("status"), class: 'control-label' %>
+    <div class="controls">
+      <p><%= form.select :status, Course.statuses.keys.to_a %></p>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= form.label t("duration"), class: 'control-label' %>
+    <div class="controls">
+      <p><%= form.select :total_month, ['3', '6', '12'] %></p>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <div>
+        <p><%= form.submit %></p>
+      </div>
+    </div>
+  </div>
 <% end %>
+
+<%= link_to t("cancel"), courses_path %>

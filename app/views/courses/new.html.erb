@@ -1,0 +1,26 @@
+<%= provide :title, "course_registration" %>
+
+<% if current_user.admin %>
+  <h1>Add course</h1>
+  <html>
+    <body>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= form_with model: @course do |f| %>
+            <%= f.label :name, "Course name" %>
+            <%= f.text_field :name, class: "form-control" %>
+            <%= f.label :description, "Course description" %>
+            <%= f.text_field :description, class: "form-control" %>
+            <%= f.label :total_month, "Course total month" %>
+            <%= f.number_field :total_month, class: "form-control" %>
+            <%= f.label :status, "Course status" %>
+            <%= f.select :status, ["Opening", "Started","Finished"] %>
+            <%= f.submit "Create course", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </body>
+  </html>
+<% else %>
+  <h3>Not admin</h3>
+<% end %>

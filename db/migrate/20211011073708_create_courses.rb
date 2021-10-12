@@ -1,6 +1,6 @@
-class CreateUsers < ActiveRecord::Migration[6.1]
+class CreateCourses < ActiveRecord::Migration[6.1]
   def change
-    create_table :users do |t|
+    create_table :courses do |t|
       t.string :name
       t.text :description
       t.integer :status, default: 0
